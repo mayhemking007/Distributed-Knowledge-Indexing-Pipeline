@@ -26,6 +26,7 @@
     "ioredis": "^5.9.3",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.0.2",
+    "openai": "^6.25.0",
     "pg": "^8.18.0",
     "typescript": "^5.9.3"
   },
