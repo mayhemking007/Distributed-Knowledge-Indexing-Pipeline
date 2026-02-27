@@ -15,7 +15,7 @@ export const DocumentSplitHandler = async (job : any) => {
         const chunks = chunkParser(content, 100, 20);
         const chunksData = chunks.map((chunk) => ({
             content : chunk,
-            documentId : doc.id
+            documentId : doc.id,
         }));
         await prisma.$transaction(async (tsx) => {
             await tsx.chunk.createMany({

@@ -20,6 +20,7 @@ model User {
   createdAt         DateTime @default(now())
 
   documents         Document[] @relation("users")
+  query             Query[] @relation("userQuery")
 }
 
 model Document {
@@ -31,8 +32,10 @@ model Document {
   userId            String
   createdAt         DateTime @default(now())
 
-  chunks             Chunk[] @relation("documentChunk")
+  chunks            Chunk[] @relation("documentChunk")
   user              User @relation("users", fields: [userId], references: [id])
+  query             Query[] @relation("documentQuery")
+
 
   @@index([userId])
   
@@ -55,6 +58,8 @@ model Chunk{
 
   document           Document @relation("documentChunk", fields: [documentId], references: [id])
 
+  @@index([documentId])
+
 }
 
 enum ChunkStatus {
@@ -62,4 +67,19 @@ enum ChunkStatus {
   PROCESSING
   COMPLETE
   FAILED
+}
+
+model Query{
+  id                String @id @default(uuid())
+  question          String
+  answer            String
+  userId            String
+  documentId        String
+  createdAt         DateTime @default(now())
+
+  document     Document @relation("documentQuery", fields: [documentId], references: [id])
+  user         User  @relation("userQuery", fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([documentId])
 }
