@@ -11,10 +11,7 @@ export const chunkProcessingHandler = async(job : any) => {
             throw new Error("Chunk not found in DB");
         }
         const embedding = await generateEmbeddings(chunk.content);
-        console.log(embedding);
-        console.log(embedding.length)
         const vectorString = `[${embedding.join(',')}]`;
-        console.log(vectorString)
         await prisma.$transaction(async(tsx) => {
             await tsx.$executeRawUnsafe(`UPDATE "Chunk"
             SET embedding = '${vectorString}'::vector

@@ -29,7 +29,8 @@ documentRouter.post('/uploads', async(req, res) => {
             if(queueSuccess){
                 res.json({
                     success : true,
-                    status : 'queued'
+                    status : 'queued',
+                    id : doc.id
                 });
             }
         }
